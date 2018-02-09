@@ -1,0 +1,10 @@
+---
+slug: :reigen
+depends:
+  mikutter: 3.6.1
+  plugin:
+  - worldon
+version: '1.0'
+author: cobodo
+name: 霊言
+description: 常世と現世を繋ぐプラグイン
