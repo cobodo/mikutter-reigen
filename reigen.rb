@@ -2,26 +2,24 @@
 
 Plugin.create(:reigen) do
 
-  defspell(:share, :worldon_for_mastodon, :twitter_tweet,
-           condition: -> (world, message) { true }
-          ) do |world, message|
-    body = "ｽｩｯ…#{message.user.name}です…\n#{message.uri}"
-    compose(world, body: body)
+  def create_body(name, uri)
+    "ｽｩｯ… #{name}です… #{uri}"
   end
 
-  defspell(:shared, :worldon_for_mastodon, :twitter_tweet,
-           condition: -> (world, message) { false }
-          ) do |world, message| end
-
-  defspell(:share, :twitter, :worldon_status,
-           condition: -> (twitter, status) { true }
-          ) do |twitter, status|
-    body = "ｽｩｯ…#{status.account.display_name}です…\n#{status.url}"
-    compose(twitter, body: body)
+  compose_proc = Proc.new do |world, message|
+    compose(world, body: create_body(message.user.name, message.uri))
   end
 
-  defspell(:shared, :twitter, :worldon_status,
-           condition: -> (twitter, status) { false }
-          ) do |twitter, status| end
+  do_nothing = Proc.new do end
 
+  pred_true  = -> (world, message) { true }
+  pred_false = -> (world, message) { false }
+
+  defspell(:share, :worldon_for_mastodon, :twitter_tweet, condition: pred_true, &compose_proc)
+
+  defspell(:shared, :worldon_for_mastodon, :twitter_tweet, condition: pred_false, &do_nothing)
+
+  defspell(:share, :twitter, :worldon_status, condition: pred_true, &compose_proc)
+
+  defspell(:shared, :twitter, :worldon_status, condition: pred_false, &do_nothing)
 end
