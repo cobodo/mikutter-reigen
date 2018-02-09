@@ -8,5 +8,7 @@ mkdir -p ~/.mikutter/plugin && git clone git://github.com/cobodo/mikutter-reigen
 ```
 
 ## 使い方
-twitter worldを選択した状態でmastodonから来たトゥートのRTボタンを押すと霊言できます。
-mastodon worldを選択した状態でtwitterから来たメッセージのRTボタンを押すと霊言できます。
+twitter worldを選択した状態でmastodonから来たトゥートを選択して「霊言する」コマンドを選択すると霊言できます。
+
+mastodon worldを選択した状態でtwitterから来たメッセージを選択して「霊言する」コマンドを選択すると霊言できます。
+
